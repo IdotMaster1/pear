@@ -1,0 +1,23 @@
+#ifndef RENDERER_H
+#define RENDERER_H
+#include "SDL2/SDL.h"
+#include <SDL2/SDL_image.h>
+#include <string>
+class Renderer
+{
+public:
+  void createWindow(const char* title,int w, int h);
+  void createRenderer();
+  void setRendererColor(int r, int g, int b, int a);
+  void clearRenderer();
+  void destroyRenderer();
+  void renderSprite(const char* path, int x, int y, float scale);
+private:
+  SDL_Renderer* renderer;
+  SDL_Window* window;
+
+
+};
+
+
+#endif

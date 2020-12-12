@@ -1,0 +1,47 @@
+
+#include "../inc/renderer.hpp"
+
+
+void Renderer::createWindow(const char* title, int w, int h)
+{
+
+      window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED,
+        SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_SHOWN);
+
+}
+void Renderer::createRenderer()
+{
+  renderer = SDL_CreateRenderer(window, -1, 0);
+
+}
+void Renderer::setRendererColor(int r,int g, int b, int a)
+{
+
+  SDL_SetRenderDrawColor(renderer,r,g,b,a);
+
+}
+
+void Renderer::clearRenderer()
+{
+
+  SDL_RenderClear(renderer);
+  SDL_RenderPresent(renderer);
+
+}
+
+void Renderer::destroyRenderer()
+{
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
+
+}
+
+void Renderer::renderSprite(const char* path,int x, int y, float scale)
+{
+  int w, h;
+  SDL_Texture* img = IMG_LoadTexture(renderer,path); 
+  SDL_QueryTexture(img, NULL, NULL, &w, &h);
+  SDL_Rect texr; texr.x = x; texr.y = y; texr.w = w * scale  ; texr.h = h * scale; 
+  SDL_RenderCopy(renderer, img, NULL, &texr);
+  SDL_RenderPresent(renderer);
+}

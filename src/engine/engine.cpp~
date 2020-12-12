@@ -1,0 +1,7 @@
+#include "../inc/engine.hpp"
+
+void Engine::sleep(int duration)
+{
+  SDL_Delay(duration * 1000);
+
+}
