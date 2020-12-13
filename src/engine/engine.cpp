@@ -36,9 +36,6 @@ void Engine::handleEvents()
 void Engine::update()
 {
   cnt++;
-  renderer.texr.x = cnt;
-  //std::cout<<renderer.texr.x<<std::endl;
-  // std::cout<<cnt<<std::endl;
 }
 void Engine::quit()
 {

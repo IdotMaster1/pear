@@ -1,6 +1,8 @@
 #include <SDL2/SDL.h>
 #include "inc/renderer.hpp"
+#include "inc/entity.hpp"
 #include "inc/engine.hpp"
+
 Engine *engine = nullptr;
 int main()
 {
@@ -17,13 +19,16 @@ int main()
     renderer.setRendererColor(0, 140, 255, 1);
     // Clears the renderer
     renderer.clearRenderer();
-    // Creates a texture
+    // Creates textures
     SDL_Texture* canadaTex = renderer.loadTexture("src/canada.png");
+    SDL_Texture* text = renderer.loadTextureFromFont(engine->WHITE,"hello","src/ComicSansMS3.ttf",50);
+    Entity flag(100,100,canadaTex);
     // Game loop
     while(engine->running())
       {
 	renderer.clearRenderer();
-	renderer.renderSprite(canadaTex,100,100,1,0);
+	renderer.renderEntity(flag,10,0.5);
+	renderer.renderFont(text);
 	engine->handleEvents();
 	engine->update();
         renderer.renderPresent();

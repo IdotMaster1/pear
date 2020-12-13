@@ -10,7 +10,7 @@ void Renderer::createWindow(const char* title, int w, int h)
 }
 void Renderer::createRenderer()
 {
-  renderer = SDL_CreateRenderer(window, -1, 0);
+  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 }
 void Renderer::setRendererColor(int r,int g, int b, int a)
@@ -47,32 +47,46 @@ SDL_Texture* Renderer::loadTexture(const char* path)
     }
   return texture;
 }
-void Renderer::renderSprite(SDL_Texture* tex,int x, int y, float scale, double angle)
+SDL_Texture* Renderer::loadTextureFromFont(SDL_Color color,const char* text,const char* path,int size)
 {
-  int w, h;
-  SDL_QueryTexture(tex, NULL, NULL, &w, &h);
-  texr.x = x; texr.y = y; texr.w = w * scale  ; texr.h = h * scale; 
-  SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
-  SDL_RenderCopyEx(renderer, tex, NULL, &texr,angle,NULL,flip);
-}
-
-void Renderer::renderFont(SDL_Color color, const char* text, int size,const char* path, int x ,int y)
-{
-  
+  SDL_Texture* texture = NULL;
   TTF_Font * font = TTF_OpenFont(path,size);
   SDL_Surface * surface = TTF_RenderText_Solid(font,text, color);
-  SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, surface);
+  texture = SDL_CreateTextureFromSurface(renderer, surface);
+  SDL_FreeSurface(surface);
+  if (texture == NULL)
+    {
+      std::cout<<"Pear failed to load a texture, error: "<<SDL_GetError()<<std::endl;
+    }
+  return texture;
+}
+void Renderer::renderEntity(Entity& entity,double angle, float scale)
+{ 
+  SDL_Rect src;
+  
+  src.x = entity.getCurrentFrame().x;
+  src.y = entity.getCurrentFrame().y;
+  src.w = entity.getCurrentFrame().w;
+  src.h = entity.getCurrentFrame().h;
+
+  SDL_Rect dst;
+  
+  dst.x = entity.getX();
+  dst.y = entity.getY();
+  dst.w = entity.getCurrentFrame().w * scale;
+  dst.h = entity.getCurrentFrame().h * scale;
+  
+  SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
+  
+  SDL_RenderCopyEx(renderer, entity.getTex(), &src, &dst,angle,NULL,flip);
+}
+
+void Renderer::renderFont(SDL_Texture* texture,int x ,int y)
+{
   int texW = 0;
   int texH = 0;
   SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
   SDL_Rect dstrect = { x, y, texW, texH };
   SDL_RenderCopy(renderer, texture, NULL, &dstrect);
-  SDL_DestroyTexture(texture);
-  SDL_FreeSurface(surface);
 }
 
-void Renderer::testAnimation()
-{
-  texr.x += 1;
-
-}
