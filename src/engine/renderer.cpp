@@ -1,7 +1,6 @@
 
 #include "../inc/renderer.hpp"
 #include <iostream>
-
 void Renderer::createWindow(const char* title, int w, int h)
 {
 
@@ -25,24 +24,36 @@ void Renderer::clearRenderer()
 {
 
   SDL_RenderClear(renderer);
-  SDL_RenderPresent(renderer);
 
 }
-
+void Renderer::renderPresent()
+{
+  SDL_RenderPresent(renderer);
+}
 void Renderer::destroyRenderer()
 {
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
 
 }
-void Renderer::renderSprite(const char* path,int x, int y, float scale)
+SDL_Texture* Renderer::loadTexture(const char* path)
+{
+  SDL_Texture* texture = NULL;
+  texture = IMG_LoadTexture(renderer,path);
+  if(texture == NULL)
+    {
+
+      std::cout<<"Pear failed to load a texture, error: "<<SDL_GetError()<<std::endl;
+    }
+  return texture;
+}
+void Renderer::renderSprite(SDL_Texture* tex,int x, int y, float scale, double angle)
 {
   int w, h;
-  SDL_Texture* img = IMG_LoadTexture(renderer,path); 
-  SDL_QueryTexture(img, NULL, NULL, &w, &h);
+  SDL_QueryTexture(tex, NULL, NULL, &w, &h);
   texr.x = x; texr.y = y; texr.w = w * scale  ; texr.h = h * scale; 
-  SDL_RenderCopy(renderer, img, NULL, &texr);
-  SDL_RenderPresent(renderer);
+  SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
+  SDL_RenderCopyEx(renderer, tex, NULL, &texr,angle,NULL,flip);
 }
 
 void Renderer::renderFont(SDL_Color color, const char* text, int size,const char* path, int x ,int y)
@@ -56,7 +67,6 @@ void Renderer::renderFont(SDL_Color color, const char* text, int size,const char
   SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
   SDL_Rect dstrect = { x, y, texW, texH };
   SDL_RenderCopy(renderer, texture, NULL, &dstrect);
-  SDL_RenderPresent(renderer);
   SDL_DestroyTexture(texture);
   SDL_FreeSurface(surface);
 }

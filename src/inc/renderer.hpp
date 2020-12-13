@@ -12,14 +12,16 @@ public:
   void setRendererColor(int r, int g, int b, int a);
   void clearRenderer();
   void destroyRenderer();
-  void renderSprite(const char* path, int x, int y, float scale);
+  SDL_Texture* loadTexture(const char* path);
+  void renderSprite(SDL_Texture* tex,int x, int y, float scale, double angle = 0);
   void renderFont(SDL_Color color, const char* text, int size, const char* path = "FiraCode-Regular.ttf", int x = 0, int y = 0);
   void updateRenderer();
+  void renderPresent();
   void testAnimation();
+  SDL_Rect texr;
 private:
   SDL_Renderer* renderer;
   SDL_Window* window;
-  SDL_Rect texr;
 
 };
 
