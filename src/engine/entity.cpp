@@ -1,7 +1,7 @@
 #include "../inc/entity.hpp"
 
-Entity::Entity(float position_x, float position_y,SDL_Texture* tex)
-  :x(position_x),y(position_y),tex(tex)
+Entity::Entity(Vector2 p_position,SDL_Texture* tex)
+  :position(p_position),tex(tex)
 {
   int w,h;
   SDL_QueryTexture(tex, NULL, NULL, &w, &h);
@@ -10,14 +10,6 @@ Entity::Entity(float position_x, float position_y,SDL_Texture* tex)
   currentFrame.w = w;
   currentFrame.h = h;
 
-}
-float Entity::getX()
-{
-  return x;
-}
-float Entity::getY()
-{
-  return y;
 }
 SDL_Texture* Entity::getTex()
 {

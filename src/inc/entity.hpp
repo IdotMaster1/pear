@@ -1,16 +1,19 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include <SDL2/SDL.h>
+#include "math.hpp"
 class Entity
 {
 public:
-  Entity(float position_x, float position_y,SDL_Texture* tex);
-  float getX();
-  float getY();
+  Entity(Vector2 p_position,SDL_Texture* tex);
+  Vector2& getPosition()
+  {
+    return position;
+  }
   SDL_Texture* getTex();
   SDL_Rect getCurrentFrame();
 private:
-  float x,y;
+  Vector2 position;
   SDL_Rect currentFrame;
   SDL_Texture* tex;
 };

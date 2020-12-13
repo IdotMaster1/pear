@@ -19,6 +19,7 @@ public:
   void renderFont(SDL_Texture* texture,int x = 0, int y = 0);
   void updateRenderer();
   void renderPresent();
+  int getRefreshRate();
 private:
   SDL_Renderer* renderer;
   SDL_Window* window;

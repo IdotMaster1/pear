@@ -30,6 +30,13 @@ void Renderer::renderPresent()
 {
   SDL_RenderPresent(renderer);
 }
+int Renderer::getRefreshRate()
+{
+  int displayIndex = SDL_GetWindowDisplayIndex(window);
+  SDL_DisplayMode mode;
+  SDL_GetDisplayMode(displayIndex,0,&mode);
+  return mode.refresh_rate;
+}
 void Renderer::destroyRenderer()
 {
   SDL_DestroyRenderer(renderer);
@@ -71,8 +78,8 @@ void Renderer::renderEntity(Entity& entity,double angle, float scale)
 
   SDL_Rect dst;
   
-  dst.x = entity.getX();
-  dst.y = entity.getY();
+  dst.x = entity.getPosition().x;
+  dst.y = entity.getPosition().y;
   dst.w = entity.getCurrentFrame().w * scale;
   dst.h = entity.getCurrentFrame().h * scale;
   

@@ -1,9 +1,11 @@
-#include <SDL2/SDL.h>
-#include "inc/renderer.hpp"
-#include "inc/entity.hpp"
 #include "inc/engine.hpp"
-
-Engine *engine = nullptr;
+#include "inc/entity.hpp"
+#include "inc/math.hpp"
+#include "inc/renderer.hpp"
+#include "inc/utils.hpp"
+#include <SDL2/SDL.h>
+#include <vector>
+Engine* engine = nullptr;
 int main()
 {
 
@@ -12,28 +14,60 @@ int main()
     engine = new Engine();
     engine->init();
     // Creates the main window
-    renderer.createWindow("hello", 1920, 1080);
+    renderer.createWindow("Pear Engine", 1920, 1080);
     // Creates the renderer
     renderer.createRenderer();
-    // Sets the renderer to have a blue background
-    renderer.setRendererColor(0, 140, 255, 1);
-    // Clears the renderer
-    renderer.clearRenderer();
+    renderer.setRendererColor(209, 206, 49, 1);
     // Creates textures
     SDL_Texture* canadaTex = renderer.loadTexture("src/canada.png");
-    SDL_Texture* text = renderer.loadTextureFromFont(engine->WHITE,"hello","src/ComicSansMS3.ttf",50);
-    Entity flag(100,100,canadaTex);
+    SDL_Texture* text = renderer.loadTextureFromFont(engine->WHITE, "hello", "src/ComicSansMS3.ttf", 50);
+
+    Entity flag(Vector2(100,100),canadaTex);
+    const float timestep = 0.01f;
+
+    float accumulator = 0.0f;
+
+    float currentTime = utils::getTimeInSeconds();
+  
     // Game loop
-    while(engine->running())
-      {
-	renderer.clearRenderer();
-	renderer.renderEntity(flag,10,0.5);
-	renderer.renderFont(text);
-	engine->handleEvents();
-	engine->update();
+    while (engine->running()) 
+    {
+        int startTick = SDL_GetTicks();
+
+        float newTime = utils::getTimeInSeconds();
+
+        float frameTime = newTime - currentTime;
+
+        accumulator += frameTime;
+        flag.getPosition().x += 1;
+        while (accumulator >= timestep)
+
+        {
+            engine->handleEvents();
+            accumulator -= timestep;
+        }
+
+        renderer.clearRenderer();
+
+        renderer.renderEntity(flag,0,0.5);
+
+        renderer.renderFont(text);
+
+        engine->update();
+
         renderer.renderPresent();
-      }
+
+	int frameTicks = SDL_GetTicks() - startTick;
+
+	if(frameTicks < 1000 / renderer.getRefreshRate())
+	  {
+	    SDL_Delay(1000 / renderer.getRefreshRate() - frameTicks);
+	  }
+	
+    }
+
     engine->quit();
+
     renderer.destroyRenderer();
-  return 0;
+    return 0;
 }
