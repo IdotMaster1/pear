@@ -6,68 +6,38 @@
 #include <SDL2/SDL.h>
 #include <vector>
 Engine* engine = nullptr;
+Renderer renderer;
+Entity* flag;
+SDL_Texture* text;
+
+void Engine::process()
+{
+    flag->getPosition().x += 1;
+    renderer.renderEntity(*flag);
+    renderer.renderFont(text);
+}
+
 int main()
 {
 
-    // Inititializes objects
-    Renderer renderer;
+
     engine = new Engine();
+
     engine->init();
-    // Creates the main window
+
     renderer.createWindow("Pear Engine", 1920, 1080);
-    // Creates the renderer
+
     renderer.createRenderer();
+
     renderer.setRendererColor(209, 206, 49, 1);
-    // Creates textures
+
+    renderer.clearRenderer();
+
     SDL_Texture* canadaTex = renderer.loadTexture("src/canada.png");
-    SDL_Texture* text = renderer.loadTextureFromFont(engine->WHITE, "hello", "src/ComicSansMS3.ttf", 50);
+    text = renderer.loadTextureFromFont(engine->WHITE, "The pear game engine", "src/ComicSansMS3.ttf", 50);
+    flag = new Entity(Vector2(100,100),canadaTex);
 
-    Entity flag(Vector2(100,100),canadaTex);
-    const float timestep = 0.01f;
-
-    float accumulator = 0.0f;
-
-    float currentTime = utils::getTimeInSeconds();
-  
-    // Game loop
-    while (engine->running()) 
-    {
-        int startTick = SDL_GetTicks();
-
-        float newTime = utils::getTimeInSeconds();
-
-        float frameTime = newTime - currentTime;
-
-        accumulator += frameTime;
-        flag.getPosition().x += 1;
-        while (accumulator >= timestep)
-
-        {
-            engine->handleEvents();
-            accumulator -= timestep;
-        }
-
-        renderer.clearRenderer();
-
-        renderer.renderEntity(flag,0,0.5);
-
-        renderer.renderFont(text);
-
-        engine->update();
-
-        renderer.renderPresent();
-
-	int frameTicks = SDL_GetTicks() - startTick;
-
-	if(frameTicks < 1000 / renderer.getRefreshRate())
-	  {
-	    SDL_Delay(1000 / renderer.getRefreshRate() - frameTicks);
-	  }
-	
-    }
-
-    engine->quit();
-
-    renderer.destroyRenderer();
+    engine->loop(renderer);
+    delete engine;
     return 0;
 }

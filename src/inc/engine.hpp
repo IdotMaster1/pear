@@ -3,16 +3,19 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 #include "renderer.hpp"
+#include "utils.hpp"
+
 class Engine
 {
 public:
   void init();
   void sleep(int duration);
   void quit();
-  void loop();
+  void loop(Renderer& renderer);
   bool running() {return isRunning;};
   void handleEvents();
   void update();
+  void process();
   SDL_Color WHITE  = {255,255,255};
 private:
   bool isRunning;
