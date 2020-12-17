@@ -33,10 +33,6 @@ void Engine::handleEvents()
     }
 
 }
-void Engine::update()
-{
-  cnt++;
-}
 void Engine::quit()
 {
   TTF_Quit();
@@ -72,7 +68,6 @@ void Engine::loop(Renderer& renderer)
 
         process();
 
-        update();
 
         renderer.renderPresent();
 

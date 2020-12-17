@@ -14,7 +14,6 @@ public:
   void loop(Renderer& renderer);
   bool running() {return isRunning;};
   void handleEvents();
-  void update();
   void process();
   SDL_Color WHITE  = {255,255,255};
 private:
