@@ -10,7 +10,7 @@ class Renderer
 public:
   void createWindow(const char* title,int w, int h);
   void createRenderer();
-  void setRendererColor(int r, int g, int b, int a);
+  void setClearColor(int r, int g, int b, int a);
   void clearRenderer();
   void destroyRenderer();
   SDL_Texture* loadTexture(const char* path);

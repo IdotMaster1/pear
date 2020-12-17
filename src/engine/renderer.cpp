@@ -13,7 +13,7 @@ void Renderer::createRenderer()
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 }
-void Renderer::setRendererColor(int r,int g, int b, int a)
+void Renderer::setClearColor(int r,int g, int b, int a)
 {
 
   SDL_SetRenderDrawColor(renderer,r,g,b,a);
@@ -83,7 +83,7 @@ void Renderer::renderEntity(Entity& entity,double angle, float scale)
   dst.w = entity.getCurrentFrame().w * scale;
   dst.h = entity.getCurrentFrame().h * scale;
   
-  SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
+  SDL_RendererFlip flip = SDL_FLIP_NONE;
   
   SDL_RenderCopyEx(renderer, entity.getTex(), &src, &dst,angle,NULL,flip);
 }
