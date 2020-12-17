@@ -1,0 +1,25 @@
+#+TITLE: The Pear Game Engine Documentation
+#+AUTHOR: Abb1x
+
+* Functions
+** Renderer::createWindow()
+   #+begin_src c++
+   void Renderer::createWindow(const char* title,int w, int h)
+   #+end_src
+   Creates an SDL Window
+** Renderer::createRenderer()
+   #+begin_src c++
+   void Renderer::createRenderer()
+   #+end_src
+   Creates a new renderer, must be called before rendering operations
+** Renderer::setClearColor()
+   #+begin_src c++
+   void Renderer::setClearColor(int r,int g, int b, int a)
+   #+end_src
+   Sets the window's background color
+   
+** Renderer::clearRenderer()
+   #+begin_src c++
+   void Renderer::clearRenderer()
+   #+end_src
+   Clears the renderer
