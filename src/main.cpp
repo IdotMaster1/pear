@@ -8,12 +8,12 @@
 Engine* engine = nullptr;
 Renderer renderer;
 
-Entity* flag;
+Entity* pear;
 Entity* myText;
 void Engine::process()
 {
-    flag->getPosition().x += 1;
-    renderer.renderEntity(*flag,0,0.5);
+    pear->getPosition().y += 1;
+    renderer.renderEntity(*pear,0,2);
     renderer.renderEntity(*myText,0,1);
     
 }
@@ -33,10 +33,10 @@ int main()
 
     renderer.clearRenderer();
 
-    SDL_Texture* canadaTex = renderer.loadTexture("assets/pear.png");
+    SDL_Texture* pearTex = renderer.loadTexture("assets/pear.png");
     SDL_Texture* text = renderer.loadTextureFromFont(engine->WHITE, "The pear game engine", "src/ComicSansMS3.ttf", 50);
     
-    flag = new Entity(Vector2(100,100),canadaTex);
+    pear = new Entity(Vector2(100,100),pearTex);
     myText = new Entity(Vector2(0,0),text);
     
     engine->loop(renderer);
