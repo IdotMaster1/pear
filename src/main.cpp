@@ -7,14 +7,13 @@
 #include <vector>
 Engine* engine = nullptr;
 Renderer renderer;
-
 Entity* pear;
 Entity* myText;
 void Engine::process()
 {
     pear->getPosition().y += 1;
     renderer.renderEntity(*pear,0,2);
-    renderer.renderEntity(*myText,0,1);
+    renderer.renderEntity(*myText,0,1 );
     
 }
 int main()
@@ -28,11 +27,8 @@ int main()
     renderer.createWindow("Pear Engine", 1920, 1080);
 
     renderer.createRenderer();
-
     renderer.setClearColor(209, 206, 49, 1);
-
     renderer.clearRenderer();
-
     SDL_Texture* pearTex = renderer.loadTexture("assets/pear.png");
     SDL_Texture* text = renderer.loadTextureFromFont(engine->WHITE, "The pear game engine", "src/ComicSansMS3.ttf", 50);
     

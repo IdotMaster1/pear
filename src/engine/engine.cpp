@@ -15,6 +15,7 @@ void Engine::init()
     }
   else
     {
+      std::cout<<"Pear failed to initialize :( error:  "<<SDL_GetError()<<std::endl;
       isRunning = false;
     }
 
@@ -49,7 +50,7 @@ void Engine::loop(Renderer& renderer)
   
     // Game loop
     while (running()) 
-    {   
+    {
         int startTick = SDL_GetTicks();
 
         float newTime = utils::getTimeInSeconds();

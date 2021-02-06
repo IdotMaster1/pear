@@ -1,8 +1,8 @@
 #+TITLE: The Pear Game Engine Documentation
 #+AUTHOR: Abb1x
-Welcome to the Pear game engine documentation! Pear is a simple, 2d game engine written in C++!
+Welcome to the Pear game engine documentation! Pear is a simple, 2d game engine written in C++.
 * Renderer functions
-** Renderer::createWindow()
+ ** Renderer::createWindow()
    #+begin_src c++
    void Renderer::createWindow(const char* title,int w, int h)
    #+end_src
