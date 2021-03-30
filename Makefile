@@ -1,6 +1,6 @@
 TARGET ?= engine
 SRC_DIRS ?= ./src
-
+CXX=clang++
 SRCS := $(shell find $(SRC_DIRS) -name *.cpp)
 OBJS := $(addsuffix .o,$(basename $(SRCS)))
 LDLIBS = -lSDL2 -lSDL2_image -lSDL2_ttf
@@ -12,5 +12,5 @@ $(TARGET): $(OBJS)
 
 .PHONY: clean
 clean:
-	$(RM) $(TARGET) $(OBJS)  */*.d */*/*.d
+	$(RM) $(TARGET) $(OBJS)
 
