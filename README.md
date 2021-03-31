@@ -2,4 +2,4 @@
 A simple game engine written in C++ with SDL2 🍐
 
 ## NOTE
-a total rewrite is plan, it will feature an easier-to-use API
+a total rewrite is planned, it will feature an easier-to-use API
