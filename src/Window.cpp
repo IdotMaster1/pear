@@ -19,6 +19,10 @@ void Window::register_event(int event, void (*handler)())
     events.push_back(std::make_pair(event, handler));
 }
 
+void Window::register_method(std::string name, void (*handler)())
+{
+    methods.push_back(std::make_pair(name, handler));
+}
 void Window::handle_events()
 {
     SDL_Event event;
@@ -61,6 +65,21 @@ Window::Window(std::string name, int w, int h)
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 }
 
+void Window::process()
+{
+    if (methods.size() >= 1)
+    {
+        for (int i = 0; i < methods.size(); i++)
+        {
+
+            if (methods[i].first == "process")
+            {
+                methods[i].second();
+            }
+        }
+    }
+}
+
 void Window::show()
 {
     int FPS = get_refresh_rate(window);
@@ -75,6 +94,12 @@ void Window::show()
         // Functions here
 
         handle_events();
+        process();
+
+        SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
+
         frame_time = SDL_GetTicks() - frame_start;
 
         if (frame_delay > frame_time)
@@ -85,4 +110,9 @@ void Window::show()
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+}
+
+void Window::background_color(SDL_Color color)
+{
+    bg_color = color;
 }
