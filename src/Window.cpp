@@ -14,15 +14,16 @@ int get_refresh_rate(SDL_Window *window)
     return mode.refresh_rate;
 }
 
-void Window::register_event(int event, void (*handler)())
+void Window::register_event(int event, std::function<void()> handler)
 {
     events.push_back(std::make_pair(event, handler));
 }
 
-void Window::register_method(std::string name, void (*handler)())
+void Window::register_method(std::string name, std::function<void()> handler)
 {
     methods.push_back(std::make_pair(name, handler));
 }
+
 void Window::handle_events()
 {
     SDL_Event event;
@@ -38,9 +39,11 @@ void Window::handle_events()
         for (int i = 0; i < events.size(); i++)
         {
 
-            if (event.type == events[i].first)
+            auto it = std::find_if(events.begin(), events.end(), [&event](const std::pair<int, std::function<void()>> &element) { return element.first == event.type; });
+
+            if (it != events.end())
             {
-                events[i].second();
+                events[it - events.begin()].second();
             }
         }
     }
@@ -94,10 +97,10 @@ void Window::show()
         // Functions here
 
         handle_events();
-        process();
 
         SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
         SDL_RenderClear(renderer);
+        process();
         SDL_RenderPresent(renderer);
 
         frame_time = SDL_GetTicks() - frame_start;

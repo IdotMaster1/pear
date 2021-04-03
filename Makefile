@@ -7,7 +7,7 @@ OBJS := $(addsuffix .o,$(basename $(SRCS)))
 
 LDLIBS = -lSDL2 -lSDL2_image -lSDL2_ttf
 
-CPPFLAGS ?= -Wall -Werror -Iinclude/
+CPPFLAGS ?= -std=c++17 -Wall -Werror -Iinclude/
 
 $(TARGET): $(OBJS)
 	$(CXX) $(LDFLAGS) $(OBJS) -o $@ $(LOADLIBS) $(LDLIBS)

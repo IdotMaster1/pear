@@ -7,6 +7,7 @@ class Player : public Sprite
 public:
   void process();
   Player(Window& window);
+  void test();
 
 };
 #endif

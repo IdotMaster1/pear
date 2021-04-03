@@ -6,7 +6,6 @@ Sprite::Sprite(std::string path, Vector2 p_position, Window &p_window)
     : window(p_window)
 {
     texture = IMG_LoadTexture(window.renderer, path.c_str());
-
     if (texture == NULL)
     {
 
