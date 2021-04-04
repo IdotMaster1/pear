@@ -8,6 +8,12 @@ public:
   void process();
   Player(Window& window);
   void move_down();
+  void move_up();
+  void move_right();
+  void move_left();
+
+private:
+  int y_dir,x_dir;
 
 };
 #endif

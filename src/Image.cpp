@@ -1,6 +1,6 @@
 #include <Image.hpp>
 using namespace pear;
-Image pear::make_image(SDL_Rect frame, Vector2 position, SDL_Texture *texture)
+Image pear::make_image(SDL_Rect frame, Vector2 position, SDL_Texture *texture, float scale)
 {
     SDL_Rect src;
 
@@ -13,8 +13,8 @@ Image pear::make_image(SDL_Rect frame, Vector2 position, SDL_Texture *texture)
 
     dst.x = position.x;
     dst.y = position.y;
-    dst.w = frame.w;
-    dst.h = frame.h;
+    dst.w = frame.w * scale;
+    dst.h = frame.h * scale;
 
     Image image;
 
