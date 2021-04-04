@@ -27,6 +27,32 @@ int get_keycode_from_string(std::string code)
     keycodes["arrow_down"] = SDLK_DOWN;
     keycodes["arrow_left"] = SDLK_LEFT;
     keycodes["arrow_right"] = SDLK_RIGHT;
+    keycodes["a"] = SDLK_a;
+    keycodes["b"] = SDLK_b;
+    keycodes["c"] = SDLK_c;
+    keycodes["d"] = SDLK_d;
+    keycodes["e"] = SDLK_e;
+    keycodes["f"] = SDLK_f;
+    keycodes["g"] = SDLK_g;
+    keycodes["h"] = SDLK_h;
+    keycodes["j"] = SDLK_j;
+    keycodes["k"] = SDLK_k;
+    keycodes["l"] = SDLK_l;
+    keycodes["m"] = SDLK_m;
+    keycodes["n"] = SDLK_n;
+    keycodes["o"] = SDLK_o;
+    keycodes["p"] = SDLK_p;
+    keycodes["q"] = SDLK_q;
+    keycodes["r"] = SDLK_r;
+    keycodes["s"] = SDLK_s;
+    keycodes["t"] = SDLK_t;
+    keycodes["u"] = SDLK_u;
+    keycodes["v"] = SDLK_v;
+    keycodes["w"] = SDLK_w;
+    keycodes["x"] = SDLK_x;
+    keycodes["y"] = SDLK_y;
+    keycodes["z"] = SDLK_z;
+
 
     return keycodes.find(code)->second;
 }
