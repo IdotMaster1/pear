@@ -8,11 +8,7 @@ namespace pear
 {
 #define make_method(x) std::bind(x, this)
 
-struct Image
-{
-    SDL_Rect source;
-    SDL_Rect destination;
-};
+
 
 Image make_image(SDL_Rect frame, Vector2 position);
 

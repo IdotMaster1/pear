@@ -68,6 +68,10 @@ Window::Window(std::string name, int w, int h)
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 }
 
+void Window::draw(Image image, double rotation)
+{
+    SDL_RenderCopyEx(renderer, image.texture, &image.source, &image.destination, rotation, NULL, SDL_FLIP_NONE);
+}
 void Window::process()
 {
     if (methods.size() >= 1)

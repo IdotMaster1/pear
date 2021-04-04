@@ -1,4 +1,5 @@
 #include <Sprite.hpp>
+#include <Window.hpp>
 
 using namespace pear;
 

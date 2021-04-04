@@ -6,17 +6,15 @@ using namespace pear;
 void Player::process()
 {
 
-    Image image = make_image(frame, position);
+    Image image = make_image(frame, position, texture);
 
-    SDL_RendererFlip flip = SDL_FLIP_NONE;
-
-    SDL_RenderCopyEx(window.renderer, texture, &image.source, &image.destination, 0, NULL, flip);
+    window.draw(image);
 }
 
 Player::Player(Window &window) : Sprite("assets/pear.png", Vector2(100, 100), window)
 {
     window.register_event(SDL_KEYDOWN, make_method(&Player::test));
-    
+
     window.register_method("process", make_method(&Player::process));
 }
 
