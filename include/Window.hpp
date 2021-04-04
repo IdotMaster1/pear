@@ -1,9 +1,9 @@
 #ifndef PEAR_WINDOW_HPP
 #define PEAR_WINDOW_HPP
+#include <Image.hpp>
 #include <SDL2/SDL.h>
 #include <functional>
 #include <string>
-#include <Image.hpp>
 #include <vector>
 namespace pear
 {
@@ -20,6 +20,7 @@ public:
     std::vector<std::pair<std::string, std::function<void()>>> methods;
 
     void register_event(int event, std::function<void()> handler);
+    void register_event(std::string code, std::function<void()> handler);
     void register_method(std::string name, std::function<void()> handler);
     void show();
     void background_color(SDL_Color color);

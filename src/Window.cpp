@@ -1,6 +1,6 @@
 #include <Window.hpp>
 #include <log.hpp>
-
+#include <map>
 using namespace pear;
 
 int get_refresh_rate(SDL_Window *window)
@@ -17,6 +17,23 @@ int get_refresh_rate(SDL_Window *window)
 void Window::register_event(int event, std::function<void()> handler)
 {
     events.push_back(std::make_pair(event, handler));
+}
+
+int get_keycode_from_string(std::string code)
+{
+    std::map<std::string, int> keycodes;
+
+    keycodes["arrow_up"] = SDLK_UP;
+    keycodes["arrow_down"] = SDLK_DOWN;
+    keycodes["arrow_left"] = SDLK_LEFT;
+    keycodes["arrow_right"] = SDLK_RIGHT;
+
+    return keycodes.find(code)->second;
+}
+
+void Window::register_event(std::string code, std::function<void()> handler)
+{
+    events.push_back(std::make_pair(get_keycode_from_string(code), handler));
 }
 
 void Window::register_method(std::string name, std::function<void()> handler)
@@ -40,6 +57,17 @@ void Window::handle_events()
         {
 
             auto it = std::find_if(events.begin(), events.end(), [&event](const std::pair<int, std::function<void()>> &element) { return element.first == event.type; });
+
+            if (it != events.end())
+            {
+                events[it - events.begin()].second();
+            }
+        }
+
+        if (event.type == SDL_KEYDOWN)
+        {
+
+            auto it = std::find_if(events.begin(), events.end(), [&event](const std::pair<int, std::function<void()>> &element) { return element.first == event.key.keysym.sym; });
 
             if (it != events.end())
             {
@@ -72,6 +100,7 @@ void Window::draw(Image image, double rotation)
 {
     SDL_RenderCopyEx(renderer, image.texture, &image.source, &image.destination, rotation, NULL, SDL_FLIP_NONE);
 }
+
 void Window::process()
 {
     if (methods.size() >= 1)

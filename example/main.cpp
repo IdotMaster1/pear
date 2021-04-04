@@ -13,14 +13,13 @@ void Player::process()
 
 Player::Player(Window &window) : Sprite("assets/pear.png", Vector2(100, 100), window)
 {
-    window.register_event(SDL_KEYDOWN, make_method(&Player::test));
-
+    window.register_event("arrow_down", make_method(&Player::move_down));
     window.register_method("process", make_method(&Player::process));
 }
 
-void Player::test()
+void Player::move_down()
 {
-    position.x++;
+    position.y++;
 }
 
 int main()
