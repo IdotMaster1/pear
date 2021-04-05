@@ -15,7 +15,7 @@ Sprite::Sprite(std::string path, Vector2 p_position, Window &p_window)
     }
 
     int w, h;
-    
+
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     width = w;
     height = h;
@@ -23,4 +23,5 @@ Sprite::Sprite(std::string path, Vector2 p_position, Window &p_window)
     frame.y = 0;
     frame.w = width;
     frame.h = height;
+    collision_shape = new CollisionShape(width,height,position);
 }

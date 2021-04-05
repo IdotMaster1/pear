@@ -147,7 +147,6 @@ void Window::show()
     int frame_delay = 1000 / FPS;
     int frame_time;
     uint32_t frame_start;
-    SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
 
     while (is_running)
     {
@@ -160,6 +159,7 @@ void Window::show()
         SDL_RenderClear(renderer);
         process();
         SDL_RenderPresent(renderer);
+        SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
 
         frame_time = SDL_GetTicks() - frame_start;
 

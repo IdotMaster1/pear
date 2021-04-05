@@ -4,6 +4,7 @@
 #include "Window.hpp"
 #include "Vector2.hpp"
 #include "Sprite.hpp"
+#include "CollisionShape.hpp"
 namespace pear
 {
 #define make_method(x) std::bind(x, this)

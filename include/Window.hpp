@@ -27,13 +27,14 @@ public:
 
     void draw(Image image, double rotation = 0);
 
+    SDL_Color bg_color;
+
 private:
     int width, height;
 
     bool is_running;
     std::vector<std::pair<int, std::function<void()>>> events;
 
-    SDL_Color bg_color;
     void handle_events();
     void process();
 };
