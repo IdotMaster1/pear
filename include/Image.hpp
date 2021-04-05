@@ -1,7 +1,7 @@
 #ifndef PEAR_IMAGE_HPP
 #define PEAR_IMAGE_HPP
 #include <SDL2/SDL.h>
-#include <Vector2.hpp>
+#include "Vector2.hpp"
 namespace pear
 {
 struct Image

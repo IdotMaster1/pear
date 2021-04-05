@@ -1,9 +1,9 @@
 #ifndef PEAR_HPP
 #define PEAR_HPP
 #include <functional>
-#include <Window.hpp>
-#include <Vector2.hpp>
-#include <Sprite.hpp>
+#include "Window.hpp"
+#include "Vector2.hpp"
+#include "Sprite.hpp"
 namespace pear
 {
 #define make_method(x) std::bind(x, this)

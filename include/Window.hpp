@@ -1,6 +1,6 @@
 #ifndef PEAR_WINDOW_HPP
 #define PEAR_WINDOW_HPP
-#include <Image.hpp>
+#include "Image.hpp"
 #include <SDL2/SDL.h>
 #include <functional>
 #include <string>

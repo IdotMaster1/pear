@@ -1,9 +1,9 @@
 #ifndef PEAR_SPRITE_HPP
 #define PEAR_SPRITE_HPP
 #include <SDL2/SDL_image.h>
-#include <Vector2.hpp>
-#include <Window.hpp>
-#include <log.hpp>
+#include "Vector2.hpp"
+#include "Window.hpp"
+#include "log.hpp"
 #include <memory>
 namespace pear
 {
