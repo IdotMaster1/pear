@@ -53,7 +53,6 @@ int get_keycode_from_string(std::string code)
     keycodes["y"] = SDLK_y;
     keycodes["z"] = SDLK_z;
 
-
     return keycodes.find(code)->second;
 }
 
@@ -148,6 +147,7 @@ void Window::show()
     int frame_delay = 1000 / FPS;
     int frame_time;
     uint32_t frame_start;
+    SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
 
     while (is_running)
     {
@@ -157,14 +157,13 @@ void Window::show()
 
         handle_events();
 
-        SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
         SDL_RenderClear(renderer);
         process();
         SDL_RenderPresent(renderer);
 
         frame_time = SDL_GetTicks() - frame_start;
 
-        if (frame_delay > frame_time)
+        if (frame_time < frame_delay)
         {
             SDL_Delay(frame_delay - frame_time);
         }
